@@ -21,6 +21,8 @@ void controlador_menuPrincipal(LinkedList* this) {
 	int flagSort = 0;
 	int option;
 
+	int (*pLaQueMapea)(void*);
+
     do{
     	option = mostrarMenuPrincipal();
 
@@ -39,12 +41,29 @@ void controlador_menuPrincipal(LinkedList* this) {
             	break;
 
             case 3:
+            	if(flag) {
+                	pLaQueMapea = ePerrito_laQueMapea;
+                	ll_map(this, pLaQueMapea);
+                	printf("\n\n\nCalculos realizados exitosamente\n\n\n");
+            	}
+            	else {
+            		printf("\n\n\nNo tiene cargados perritos en el sistema\n\n\n");
+            	}
+
+            	system("pause");
+            	break;
+
+            case 4:
+            	mostrarListaPerritosConSusRacionesDeComida(this, flag);
+            	break;
+
+            case 5:
             	mostrarMensajeDespedida();
             	break;
 
         }
 
-    } while(option != 3);
+    } while(option != 5);
 }
 
 
@@ -63,8 +82,10 @@ int mostrarMenuPrincipal(void) {
 								 "MENU\n\n"
 								 "===================================================================================================================\n"
 								 "1. Cargar los datos de los perritos desde el archivo perritos.csv (modo texto).\n"
-								 "2. Ordenar Perritos & Mostrar Lista\n\n"
-								 "3. Salir\n"
+								 "2. Ordenar Perritos & Mostrar Lista\n"
+								 "3. Calcular Cantidad De Raciones De Comida\n"
+								 "4. Mostrar Lista Perritos Con Sus Raciones De Comida\n\n"
+								 "5. Salir\n"
 								 "===================================================================================================================\n\n"
 								 "Ingrese una opcion: ",
 
@@ -74,10 +95,12 @@ int mostrarMenuPrincipal(void) {
 								 "MENU\n\n"
 								 "===================================================================================================================\n"
 								 "1. Cargar los datos de los perritos desde el archivo perritos.csv (modo texto).\n"
-								 "2. Ordenar Perritos & Mostrar Lista\n\n"
-								 "3. Salir\n"
+								 "2. Ordenar Perritos & Mostrar Lista\n"
+								 "3. Calcular Cantidad De Raciones De Comida\n"
+								 "4. Mostrar Lista Perritos Con Sus Raciones De Comida\n\n"
+								 "5. Salir\n"
 								 "===================================================================================================================\n\n"
-								 "Reingrese una opcion: ", 1, 3);
+								 "Reingrese una opcion: ", 1, 5);
 
 
 	return option;
@@ -277,6 +300,70 @@ int controlador_listaPerritos(LinkedList* this) {
 
 
 
+
+
+void mostrarListaPerritosConSusRacionesDeComida(LinkedList* this, int flag) {
+
+	if(flag) {
+		controlador_listaPerritosConSusRaciones(this);
+	}
+	else {
+		printf("\n\n\nERROR! <<No hay perritos cargados en el sistema>>\n\n");
+	}
+
+	printf("\n\n");
+	system("pause");
+}
+
+
+
+
+
+int controlador_listaPerritosConSusRaciones(LinkedList* this) {
+
+	ePerrito *pPerrito = NULL;
+	int retorno = 0;
+
+	int id;
+	char nombre[21];
+	float peso;
+	int edad;
+	char raza[21];
+	float cantidadComidaRacion;
+
+	if(this != NULL)
+	{
+		printf("\n\n\n\nLISTA DE PERRITOS\n"
+				"-------------------------------------------------------------------------------------------------------------------\n"
+				"%-20s %-30s %-20s %-20s %-20s %-20s", "ID", "Nombre", "Peso", "Edad", "Raza", "Racion\n"
+				"-------------------------------------------------------------------------------------------------------------------\n" );
+
+		for (int i = 0; i < ll_len(this); ++i) {
+
+			pPerrito = (ePerrito*) ll_get(this, i);
+
+			perrito_getId(pPerrito, &id);
+			perrito_getNombre(pPerrito, nombre);
+			perrito_getPeso(pPerrito, &peso);
+			perrito_getEdad(pPerrito, &edad);
+			perrito_getRaza(pPerrito, raza);
+			perrito_getCantidadComidaRacion(pPerrito, &cantidadComidaRacion);
+
+			pPerrito = NULL;
+			printf("%-20d %-30s %-20.2f %-20d %-20s %-20.2f\n", id, nombre, peso, edad, raza, cantidadComidaRacion);
+		}
+
+		retorno = 1;
+	}
+
+	return retorno;
+}
+
+
+
+
+
+
 /**
  * @fn void mostrarMensajeDespedida(void)
  * @brief muestra el mensaje de finalizacion del programa
@@ -289,6 +376,9 @@ void mostrarMensajeDespedida(void) {
 			"Programa finalizado!\n"
 			"===================================================================================================================");
 }
+
+
+
 
 
 

@@ -13,6 +13,12 @@ void mostrarListaPerritos(LinkedList* this, int flag);
 int controlador_listaPerritos(LinkedList* this);
 
 
+/// /// Mostrar Lista Perritos Con Sus Raciones
+void mostrarListaPerritosConSusRacionesDeComida(LinkedList* this, int flag);
+int controlador_listaPerritosConSusRaciones(LinkedList* this);
+
+
+
 /// Exit program
 void mostrarMensajeDespedida(void);
 

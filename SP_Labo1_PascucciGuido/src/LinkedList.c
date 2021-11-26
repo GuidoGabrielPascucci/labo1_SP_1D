@@ -608,3 +608,29 @@ int ll_sort(LinkedList* this, int (*pFunc)(void* ,void*), int order)
     return returnAux;
 }
 
+
+
+int ll_map(LinkedList* this, int (*pFunc)(void*)) {
+
+	int ret = 0;
+	Node* pNode = NULL;
+
+
+	if(this != NULL && pFunc != NULL) {
+
+		for (int i = 0; i < ll_len(this); ++i) {
+			pNode = (Node*) ll_get(this, i);
+			pFunc(pNode);
+		}
+
+		ret = 1;
+	}
+
+
+	return ret;
+}
+
+
+
+
+

@@ -10,6 +10,7 @@ typedef struct
     float peso;
     int edad;
     char raza[21];
+    float cantidadComidaRacion;
 }ePerrito;
 
 
@@ -36,9 +37,18 @@ int perrito_getEdad(ePerrito* this, int* edad);
 int perrito_setRaza(ePerrito* this, char* raza);
 int perrito_getRaza(ePerrito* this, char* raza);
 
+int perrito_setCantidadComidaRacion(ePerrito* this, float cantidadComidaRacion);
+int perrito_getCantidadComidaRacion(ePerrito* this, float* cantidadComidaRacion);
+
 
 /// Sort
 int sortByName(ePerrito* pPerritoA, ePerrito* pPerritoB);
+
+
+/// La que mapea
+int ePerrito_laQueMapea(void* pElement);
+
+
 
 
 

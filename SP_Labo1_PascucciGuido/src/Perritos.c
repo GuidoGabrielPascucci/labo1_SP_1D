@@ -280,6 +280,49 @@ int perrito_getRaza(ePerrito* this, char* raza) {
 
 
 /**
+ * @fn int perrito_setCantidadComidaRacion(ePerrito*, float)
+ * @brief guarda en la struct un dato de tipo cantidadComidaRacion.
+ *
+ * @param this
+ * @param cantidadComidaRacion
+ * @return [0] si el puntero es NULL / [1] si OK
+ */
+int perrito_setCantidadComidaRacion(ePerrito* this, float cantidadComidaRacion) {
+
+	int retorno = 0;
+	if(this != NULL) {
+		this->cantidadComidaRacion = cantidadComidaRacion;
+		retorno = 1;
+	}
+
+	return retorno;
+}
+
+
+
+/**
+ * @fn int perrito_getCantidadComidaRacion(ePerrito*, float*)
+ * @brief trae un elemento de la struct de tipo cantidadComidaRacion.
+ *
+ * @param this
+ * @param cantidadComidaRacion
+ * @return [0] si el puntero es NULL / [1] si OK
+ */
+int perrito_getCantidadComidaRacion(ePerrito* this, float* cantidadComidaRacion) {
+
+	int retorno = 0;
+	if(this != NULL) {
+		*cantidadComidaRacion = this->cantidadComidaRacion;
+		retorno = 1;
+	}
+
+	return retorno;
+}
+
+
+
+
+/**
  * @fn int sortByName(ePerrito*, ePerrito*)
  * @brief ordena la lista de perritos segun nombre.
  *
@@ -301,6 +344,31 @@ int sortByName(ePerrito* pPerritoA, ePerrito* pPerritoB) {
 
 	return resultCmp;
 }
+
+
+
+
+int ePerrito_laQueMapea(void* pElement) {
+
+	int ret = 0;
+	float peso;
+	float cantidadComidaRacion;
+
+	ePerrito *pPerrito = (ePerrito*) pElement;
+
+
+	if(pElement != NULL) {
+		perrito_getPeso(pPerrito, &peso);
+		cantidadComidaRacion = peso * 23;
+		perrito_setCantidadComidaRacion(pPerrito, cantidadComidaRacion);
+
+		ret = 1;
+	}
+
+
+	return ret;
+}
+
 
 
 
